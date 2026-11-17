@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "id": "reterra:soil_reclaimer"
+    },
+    "title": {
+      "text": "First Roots"
+    },
+    "description": {
+      "text": "A little help for tired ground."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "discovery": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "reterra:soil_science"
+}

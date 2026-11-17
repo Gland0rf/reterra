@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,supplied=false": {
+      "model": "reterra:block/heart_of_the_world"
+    },
+    "lit=false,supplied=true": {
+      "model": "reterra:block/heart_of_the_world_stored"
+    },
+    "lit=true,supplied=false": {
+      "model": "reterra:block/heart_of_the_world_active"
+    },
+    "lit=true,supplied=true": {
+      "model": "reterra:block/heart_of_the_world_active"
+    }
+  }
+}

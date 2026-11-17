@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "id": "reterra:restoration_core"
+    },
+    "title": {
+      "text": "A Greener World"
+    },
+    "description": {
+      "text": "A place worth coming home to."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "discovery": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "reterra:first_growth"
+}

@@ -1,0 +1,52 @@
+{
+  "criteria": {
+    "0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "reterra:sheep_sample"
+          }
+        ]
+      }
+    },
+    "1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "reterra:cow_sample"
+          }
+        ]
+      }
+    },
+    "2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "reterra:chicken_sample"
+          }
+        ]
+      }
+    },
+    "3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "reterra:bee_sample"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "0",
+      "1",
+      "2",
+      "3"
+    ]
+  ]
+}

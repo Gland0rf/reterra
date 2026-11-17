@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "discovery": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:charcoal"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "reterra:water_filter"
+    ]
+  }
+}

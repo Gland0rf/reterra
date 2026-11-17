@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "id": "reterra_test",
+  "version": "1.0.0",
+  "name": "ReTerra integration tests",
+  "environment": "server",
+  "mixins": ["reterra-test.mixins.json"],
+  "entrypoints": {"fabric-gametest": ["dev.reterra.RestorationGameTests", "dev.reterra.RenewalGameTests", "dev.reterra.AnimationGameTests"]}
+}

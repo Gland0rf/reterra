@@ -1,0 +1,664 @@
+[
+  {
+    "id": "reterra:compost_from_mushrooms",
+    "result": {
+      "id": "reterra:organic_compost",
+      "count": 4
+    },
+    "grid": [
+      {
+        "item": "minecraft:oak_log",
+        "count": 1
+      },
+      {
+        "item": "minecraft:brown_mushroom",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:compost_from_decay",
+    "result": {
+      "id": "reterra:organic_compost",
+      "count": 4
+    },
+    "grid": [
+      {
+        "item": "minecraft:oak_log",
+        "count": 1
+      },
+      {
+        "item": "minecraft:rotten_flesh",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:compost_from_wheat",
+    "result": {
+      "id": "reterra:organic_compost",
+      "count": 8
+    },
+    "grid": [
+      {
+        "item": "minecraft:wheat",
+        "count": 1
+      },
+      {
+        "item": "minecraft:wheat",
+        "count": 1
+      },
+      {
+        "item": "minecraft:wheat",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:compost_from_carrots",
+    "result": {
+      "id": "reterra:organic_compost",
+      "count": 8
+    },
+    "grid": [
+      {
+        "item": "minecraft:carrot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:carrot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:carrot",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:compost_from_potatoes",
+    "result": {
+      "id": "reterra:organic_compost",
+      "count": 8
+    },
+    "grid": [
+      {
+        "item": "minecraft:potato",
+        "count": 1
+      },
+      {
+        "item": "minecraft:potato",
+        "count": 1
+      },
+      {
+        "item": "minecraft:potato",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:compost_from_leaves",
+    "result": {
+      "id": "reterra:organic_compost",
+      "count": 4
+    },
+    "grid": [
+      {
+        "item": "minecraft:oak_leaves",
+        "count": 1
+      },
+      {
+        "item": "minecraft:oak_leaves",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:compost_from_pumpkin",
+    "result": {
+      "id": "reterra:organic_compost",
+      "count": 8
+    },
+    "grid": [
+      {
+        "item": "minecraft:pumpkin",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:compost_from_melon",
+    "result": {
+      "id": "reterra:organic_compost",
+      "count": 4
+    },
+    "grid": [
+      {
+        "item": "minecraft:melon_slice",
+        "count": 1
+      },
+      {
+        "item": "minecraft:melon_slice",
+        "count": 1
+      },
+      {
+        "item": "minecraft:melon_slice",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:fertile_soil",
+    "result": {
+      "id": "minecraft:dirt",
+      "count": 4
+    },
+    "grid": [
+      {
+        "item": "minecraft:gravel",
+        "count": 1
+      },
+      {
+        "item": "minecraft:gravel",
+        "count": 1
+      },
+      {
+        "item": "minecraft:gravel",
+        "count": 1
+      },
+      {
+        "item": "minecraft:gravel",
+        "count": 1
+      },
+      {
+        "item": "reterra:organic_compost",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:fertile_soil_from_coarse",
+    "result": {
+      "id": "minecraft:dirt",
+      "count": 4
+    },
+    "grid": [
+      {
+        "item": "minecraft:coarse_dirt",
+        "count": 1
+      },
+      {
+        "item": "minecraft:coarse_dirt",
+        "count": 1
+      },
+      {
+        "item": "minecraft:coarse_dirt",
+        "count": 1
+      },
+      {
+        "item": "minecraft:coarse_dirt",
+        "count": 1
+      },
+      {
+        "item": "reterra:organic_compost",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:nutrient_culture",
+    "result": {
+      "id": "reterra:nutrient_culture",
+      "count": 1
+    },
+    "grid": [
+      {
+        "item": "minecraft:glass_bottle",
+        "count": 1
+      },
+      {
+        "item": "minecraft:wheat",
+        "count": 1
+      },
+      {
+        "item": "minecraft:bone_meal",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:water_filter",
+    "result": {
+      "id": "reterra:water_filter",
+      "count": 1
+    },
+    "grid": [
+      {
+        "item": "minecraft:sand",
+        "count": 1
+      },
+      {
+        "item": "minecraft:charcoal",
+        "count": 1
+      },
+      {
+        "item": "minecraft:gravel",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:environmental_scanner",
+    "result": {
+      "id": "reterra:environmental_scanner",
+      "count": 1
+    },
+    "grid": [
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:glass",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:redstone",
+        "count": 1
+      },
+      {
+        "item": "minecraft:compass",
+        "count": 1
+      },
+      {
+        "item": "minecraft:redstone",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:glass",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ],
+    "shaped": true
+  },
+  {
+    "id": "reterra:grass_culture",
+    "result": {
+      "id": "reterra:grass_culture",
+      "count": 1
+    },
+    "grid": [
+      {
+        "item": "minecraft:glass_bottle",
+        "count": 1
+      },
+      {
+        "item": "minecraft:wheat_seeds",
+        "count": 1
+      },
+      {
+        "item": "reterra:organic_compost",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:archive_fragment",
+    "result": {
+      "id": "reterra:archive_fragment",
+      "count": 1
+    },
+    "grid": [
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:redstone",
+        "count": 1
+      },
+      {
+        "item": "minecraft:glass",
+        "count": 1
+      },
+      {
+        "item": "minecraft:redstone",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ],
+    "shaped": true
+  },
+  {
+    "id": "reterra:soil_reclaimer",
+    "result": {
+      "id": "reterra:soil_reclaimer",
+      "count": 1
+    },
+    "grid": [
+      {
+        "item": "minecraft:cobblestone",
+        "count": 1
+      },
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:cobblestone",
+        "count": 1
+      },
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:piston",
+        "count": 1
+      },
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:cobblestone",
+        "count": 1
+      },
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:cobblestone",
+        "count": 1
+      }
+    ],
+    "shaped": true
+  },
+  {
+    "id": "reterra:restoration_core",
+    "result": {
+      "id": "reterra:restoration_core",
+      "count": 1
+    },
+    "grid": [
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "reterra:grass_culture",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "reterra:soil_reclaimer",
+        "count": 1
+      },
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:redstone_block",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ],
+    "shaped": true
+  },
+  {
+    "id": "reterra:water_restorer",
+    "result": {
+      "id": "reterra:water_restorer",
+      "count": 1
+    },
+    "grid": [
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:piston",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "reterra:water_filter",
+        "count": 1
+      },
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:bucket",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ],
+    "shaped": true
+  },
+  {
+    "id": "reterra:revival_chamber",
+    "result": {
+      "id": "reterra:revival_chamber",
+      "count": 1
+    },
+    "grid": [
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:glass",
+        "count": 1
+      },
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:glass",
+        "count": 1
+      },
+      {
+        "item": "minecraft:piston",
+        "count": 1
+      },
+      {
+        "item": "minecraft:glass",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "reterra:archive_fragment",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ],
+    "shaped": true
+  },
+  {
+    "id": "reterra:heart_of_the_world",
+    "result": {
+      "id": "reterra:heart_of_the_world",
+      "count": 1
+    },
+    "grid": [
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:gold_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:gold_ingot",
+        "count": 1
+      },
+      {
+        "item": "reterra:restoration_core",
+        "count": 1
+      },
+      {
+        "item": "minecraft:gold_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      },
+      {
+        "item": "minecraft:diamond",
+        "count": 1
+      },
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ],
+    "shaped": true
+  },
+  {
+    "id": "reterra:compact_soil_coarse_dirt",
+    "result": {
+      "id": "minecraft:dirt",
+      "count": 4
+    },
+    "grid": [
+      {
+        "item": "minecraft:coarse_dirt",
+        "count": 4
+      },
+      {
+        "item": "reterra:organic_compost",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "reterra:compact_soil_gravel",
+    "result": {
+      "id": "minecraft:dirt",
+      "count": 4
+    },
+    "grid": [
+      {
+        "item": "minecraft:gravel",
+        "count": 4
+      },
+      {
+        "item": "reterra:organic_compost",
+        "count": 1
+      }
+    ],
+    "shaped": false
+  },
+  {
+    "id": "minecraft:bread",
+    "result": {
+      "id": "minecraft:bread",
+      "count": 1
+    },
+    "grid": [
+      {
+        "item": "minecraft:wheat",
+        "count": 1
+      },
+      {
+        "item": "minecraft:wheat",
+        "count": 1
+      },
+      {
+        "item": "minecraft:wheat",
+        "count": 1
+      }
+    ],
+    "shaped": true
+  }
+]

@@ -1,0 +1,24 @@
+plugins {
+    id 'dev.kikugie.stonecutter'
+}
+
+stonecutter.active '1.21.1' /* [SC] DO NOT EDIT */
+
+tasks.register('assemble') {
+    group = 'build'
+    dependsOn subprojects.collect { "${it.path}:stageRelease" }
+}
+tasks.register('check') {
+    group = 'verification'
+    dependsOn subprojects.collect { "${it.path}:check" }
+}
+tasks.register('build') {
+    group = 'build'
+    dependsOn 'assemble', 'check'
+    dependsOn subprojects.collect { "${it.path}:build" }
+}
+tasks.register('clean', Delete) {
+    group = 'build'
+    delete layout.buildDirectory
+    dependsOn subprojects.collect { "${it.path}:clean" }
+}

@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "id": "reterra:recovery_bundle"
+    },
+    "title": {
+      "text": "The Last Seed"
+    },
+    "description": {
+      "text": "A small beginning."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "discovery": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "reterra:recovery_bundle"
+          }
+        ]
+      }
+    }
+  },
+  "parent": "reterra:wasteland"
+}

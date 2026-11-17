@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "id": "reterra_preview",
+  "version": "1.0.0",
+  "name": "ReTerra UI render checks",
+  "environment": "client",
+  "entrypoints": {"client": ["dev.reterra.UiRenderCheck", "dev.reterra.AnimationRenderCheck"]}
+}

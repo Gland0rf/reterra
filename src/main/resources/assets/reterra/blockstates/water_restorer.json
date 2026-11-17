@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,supplied=false": {
+      "model": "reterra:block/water_restorer"
+    },
+    "lit=false,supplied=true": {
+      "model": "reterra:block/water_restorer_stored"
+    },
+    "lit=true,supplied=false": {
+      "model": "reterra:block/water_restorer_active"
+    },
+    "lit=true,supplied=true": {
+      "model": "reterra:block/water_restorer_active"
+    }
+  }
+}

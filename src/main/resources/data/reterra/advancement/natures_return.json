@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "id": "reterra:bee_sample"
+    },
+    "title": {
+      "text": "Nature Returns"
+    },
+    "description": {
+      "text": "The silence is broken."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "discovery": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "reterra:greener_world"
+}

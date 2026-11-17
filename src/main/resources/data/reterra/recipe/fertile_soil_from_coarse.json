@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "result": {
+    "id": "minecraft:dirt",
+    "count": 4
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:coarse_dirt"
+    },
+    {
+      "item": "minecraft:coarse_dirt"
+    },
+    {
+      "item": "minecraft:coarse_dirt"
+    },
+    {
+      "item": "minecraft:coarse_dirt"
+    },
+    {
+      "item": "reterra:organic_compost"
+    }
+  ]
+}

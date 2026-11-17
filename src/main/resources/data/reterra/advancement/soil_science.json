@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "id": "reterra:organic_compost"
+    },
+    "title": {
+      "text": "Soil, Not Stone"
+    },
+    "description": {
+      "text": "Life takes root again."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "discovery": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "reterra:organic_compost"
+          }
+        ]
+      }
+    }
+  },
+  "parent": "reterra:the_last_seed"
+}

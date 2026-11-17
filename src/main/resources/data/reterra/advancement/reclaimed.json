@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:oak_sapling"
+    },
+    "title": {
+      "text": "New Nature"
+    },
+    "description": {
+      "text": "An ecosystem stands on its own."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "discovery": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "reterra:natures_return"
+}

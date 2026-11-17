@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,supplied=false": {
+      "model": "reterra:block/revival_chamber"
+    },
+    "lit=false,supplied=true": {
+      "model": "reterra:block/revival_chamber_stored"
+    },
+    "lit=true,supplied=false": {
+      "model": "reterra:block/revival_chamber_active"
+    },
+    "lit=true,supplied=true": {
+      "model": "reterra:block/revival_chamber_active"
+    }
+  }
+}

@@ -1,0 +1,87 @@
+// Applied by both build families. Keep compatibility groups in release-groups.json.
+def groups = new groovy.json.JsonSlurper().parse(rootProject.file('gradle/release-groups.json'))
+def minecraftVersion = project.name
+def members = groups.find { minecraftVersion in it } ?: [minecraftVersion]
+def canonical = members.first()
+def label = members.size() > 1 ? "${members.first()}-${members.last()}" : minecraftVersion
+def propertiesFor = { String member ->
+    def properties = new Properties()
+    rootProject.file("versions/${member}/version.properties").withInputStream { properties.load(it) }
+    properties
+}
+def properties = members.collect(propertiesFor)
+if (properties.collect { it.getProperty('java_version') }.unique().size() != 1)
+    throw new GradleException("Release group ${members} uses different Java versions; split the group.")
+def loader = properties.collect { it.getProperty('loader_version') }.max { a, b ->
+    def left = a.tokenize('.').collect { it.toInteger() }
+    def right = b.tokenize('.').collect { it.toInteger() }
+    for (int i = 0; i < Math.max(left.size(), right.size()); i++) {
+        def comparison = (i < left.size() ? left[i] : 0) <=> (i < right.size() ? right[i] : 0)
+        if (comparison != 0) return comparison
+    }
+    return 0
+}
+version = "${project.mod_version}+mc${label}"
+ext.releaseCompatibility = members.size() > 1 ? ">=${members.first()} <=${members.last()}" : minecraftVersion
+ext.releaseLoader = loader
+
+if (minecraftVersion != canonical) {
+    tasks.register('stageRelease') {
+        group = 'build'
+        description = 'Validate and stage the shared release from its canonical target.'
+        dependsOn ":${canonical}:stageRelease"
+    }
+} else {
+    def artifactTask = { String member ->
+        project(":${member}").tasks.named(member.startsWith('26.') ? 'jar' : 'remapJar')
+    }
+    def verify = tasks.register('verifySharedRelease') {
+        group = 'verification'
+        description = 'Reject shared releases whose classes, resources or mixins differ.'
+        dependsOn members.collect { ":${it}:${it.startsWith('26.') ? 'jar' : 'remapJar'}" }
+        inputs.file(rootProject.file('gradle/release-groups.json'))
+        inputs.files(providers.provider { members.collect { artifactTask(it).get().archiveFile.get().asFile } })
+        // Always verify before staging, even when compilation is up to date.
+        doLast {
+            def readJar = { File file ->
+                def entries = [:]
+                new java.util.zip.ZipFile(file).withCloseable { zip ->
+                    zip.entries().each { entry ->
+                        if (!entry.directory && entry.name != 'META-INF/MANIFEST.MF') {
+                            zip.getInputStream(entry).withCloseable { stream ->
+                                entries[entry.name] = java.security.MessageDigest.getInstance('SHA-256')
+                                    .digest(stream.bytes).encodeHex().toString()
+                            }
+                        }
+                    }
+                }
+                entries
+            }
+            def baseline = readJar(artifactTask(canonical).get().archiveFile.get().asFile)
+            members.drop(1).each { member ->
+                def candidate = readJar(artifactTask(member).get().archiveFile.get().asFile)
+                def differences = (baseline.keySet() + candidate.keySet()).findAll {
+                    baseline[it] != candidate[it]
+                }.sort()
+                if (differences) throw new GradleException(
+                    "Cannot share ${canonical} and ${member}: JAR contents differ: ${differences.take(12)}. " +
+                    'Split their group in gradle/release-groups.json or resolve the compatibility differences.')
+            }
+            logger.lifecycle("Verified release ${label}: ${members.join(', ')}")
+        }
+    }
+    tasks.register('stageRelease', Copy) {
+        group = 'build'
+        description = 'Verify compatibility and collect the release JAR.'
+        dependsOn verify
+        from(artifactTask(canonical).flatMap { it.archiveFile })
+        into(rootProject.layout.buildDirectory.dir('libs'))
+        doLast {
+            // Remove only obsolete per-version files from this group and mod version.
+            members.each { member ->
+                if (member != label) project.delete(rootProject.layout.buildDirectory.file(
+                    "libs/${project.archives_base_name}-${project.mod_version}+mc${member}.jar"))
+            }
+        }
+    }
+}

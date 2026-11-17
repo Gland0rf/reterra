@@ -1,0 +1,45 @@
+pluginManagement {
+    repositories {
+        maven { url = 'https://maven.fabricmc.net/' }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'dev.kikugie.stonecutter' version '0.9.8'
+}
+
+rootProject.name = 'reterra'
+
+stonecutter {
+    kotlinController = false
+    centralScript = 'build.gradle'
+    create(rootProject) {
+        def enabled = ['1.21', '1.21.1', '1.21.2', '1.21.3', '1.21.4', '1.21.5', '1.21.6', '1.21.7', '1.21.8', '1.21.9', '1.21.10', '1.21.11',
+            '26.1', '26.1.1', '26.1.2', '26.2', '26.3']
+        def requested = providers.gradleProperty('reterra.targets').orNull
+        def selected = requested ? requested.split(',').toList() : enabled
+        selected.each { target ->
+            if (!file("versions/${target}/version.properties").isFile())
+                throw new GradleException("No ReTerra target is configured for Minecraft ${target}")
+        }
+        // The editor's source version remains available when a single target is selected.
+        def groups = new groovy.json.JsonSlurper().parse(file('gradle/release-groups.json'))
+        def grouped = groups.flatten()
+        if (grouped.unique(false).size() != grouped.size())
+            throw new GradleException('A Minecraft target appears in more than one release group')
+        groups.each { group ->
+            if (group.size() < 2 || group.any { !(it in enabled) })
+                throw new GradleException("Invalid release group: ${group}")
+        }
+        def included = (selected + ['1.21.1']).collectMany { target ->
+            groups.find { target in it } ?: [target]
+        }.unique()
+        included.each { target ->
+            def node = version(target)
+            if (target.startsWith('26.')) node.buildscript('build-modern.gradle')
+        }
+        vcsVersion = '1.21.1'
+    }
+}

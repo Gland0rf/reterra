@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "result": {
+    "id": "reterra:organic_compost",
+    "count": 4
+  },
+  "ingredients": [
+    {
+      "tag": "minecraft:leaves"
+    },
+    {
+      "tag": "minecraft:leaves"
+    }
+  ]
+}

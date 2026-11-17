@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "result": {
+    "id": "reterra:heart_of_the_world",
+    "count": 1
+  },
+  "pattern": [
+    "CGC",
+    "GRG",
+    "CDC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "R": {
+      "item": "reterra:restoration_core"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  }
+}

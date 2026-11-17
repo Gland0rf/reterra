@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "dev.reterra.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": ["ChunkGeneratorMixin", "GenerationAccessMixin", "MobEntityMixin", "MobGoalsAccessor", "BlockItemMixin", "HoeItemMixin", "LootTableMixin", "AnimalCareMixin", "CompactSoilCraftingMixin", "CompactSoilCrafterMixin", "CropGrowthMixin", "DisplayAnimationAccess", "CrystalDisplayAccess"],
+  "injectors": {"defaultRequire": 1}
+}

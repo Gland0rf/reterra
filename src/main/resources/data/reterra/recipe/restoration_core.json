@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "result": {
+    "id": "reterra:restoration_core",
+    "count": 1
+  },
+  "pattern": [
+    "CGC",
+    "IRI",
+    "CPC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "G": {
+      "item": "reterra:grass_culture"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "reterra:soil_reclaimer"
+    },
+    "P": {
+      "item": "minecraft:redstone_block"
+    }
+  }
+}

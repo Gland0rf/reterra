@@ -1,0 +1,258 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version '1.19.4'
+    id 'dev.kikugie.stonecutter'
+    id 'maven-publish'
+}
+
+def target = new Properties()
+file('version.properties').withInputStream { target.load(it) }
+def minecraftVersion = target.getProperty('minecraft_version')
+def javaVersion = target.getProperty('java_version').toInteger()
+
+apply from: rootProject.file('gradle/release.gradle')
+
+group = project.maven_group
+base { archivesName = project.archives_base_name }
+
+repositories { mavenCentral() }
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraftVersion}"
+    implementation "net.fabricmc:fabric-loader:${target.getProperty('loader_version')}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${target.getProperty('fabric_version')}"
+    testImplementation platform('org.junit:junit-bom:5.11.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+def modernRecipes = stonecutter.eval(minecraftVersion, '>=1.21.2')
+def modernLoot = stonecutter.eval(minecraftVersion, '>=26.3')
+
+def modernItems = stonecutter.eval(minecraftVersion, '>=1.21.4')
+def registeredRules = stonecutter.eval(minecraftVersion, '>=1.21.11')
+def targetResources = layout.buildDirectory.dir('generated/target-resources')
+def generateTargetResources = tasks.register('generateTargetResources') {
+    def shared = rootProject.file('src/main/resources')
+    inputs.files(fileTree(shared) { include '**/*.json' })
+    inputs.property('minecraftVersion', minecraftVersion)
+    outputs.dir(targetResources)
+    doLast {
+        def destination = targetResources.get().asFile
+        def writeJson = { String path, Object data ->
+            def output = new File(destination, path)
+            output.parentFile.mkdirs()
+            output.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(data)) + '\n'
+        }
+        def parser = new groovy.json.JsonSlurper()
+        if (registeredRules) {
+            def mixins = parser.parse(new File(shared, 'reterra.mixins.json'))
+            mixins.mixins.add('GameRuleMigrationMixin')
+            mixins.mixins.remove('HoeItemMixin')
+            mixins.remove('refmap')
+            mixins.compatibilityLevel = 'JAVA_25'
+            writeJson('reterra.mixins.json', mixins)
+        }
+        if (modernRecipes) {
+            fileTree(new File(shared, 'data/reterra/recipe')).matching { include '*.json' }.each { source ->
+                def recipe = parser.parse(source)
+                def ingredient = { value ->
+                    if (value instanceof Map && value.containsKey('item')) return value.item
+                    if (value instanceof Map && value.containsKey('tag')) return '#' + value.tag
+                    return value
+                }
+                if (recipe.key) recipe.key = recipe.key.collectEntries { key, value -> [(key): ingredient(value)] }
+                if (recipe.ingredients) recipe.ingredients = recipe.ingredients.collect(ingredient)
+                writeJson("data/reterra/recipe/${source.name}", recipe)
+            }
+            fileTree(new File(shared, 'data/reterra/worldgen/biome')).matching { include '*.json' }.each { source ->
+                def biome = parser.parse(source)
+                biome.carvers = []
+                def attributes = [:]
+                ['sky_color', 'fog_color', 'water_fog_color'].each { key ->
+                    if (biome.effects.containsKey(key)) {
+                        attributes["minecraft:visual/${key}"] = String.format('#%06x', biome.effects.remove(key))
+                    }
+                }
+                biome.effects = biome.effects.collectEntries { key, value ->
+                    [(key): value instanceof Number ? String.format('#%06x', value.intValue()) : value]
+                }
+                if (stonecutter.eval(minecraftVersion, '>=26.3')) {
+                    biome.remove('spawners')
+                    biome.remove('spawn_costs')
+                    attributes['minecraft:gameplay/natural_mob_spawns'] =
+                        [modifier: 'override', argument: [spawn_costs: [:], spawns_by_category: [:]]]
+                }
+                biome.attributes = attributes
+                writeJson("data/reterra/worldgen/biome/${source.name}", biome)
+            }
+        }
+        if (modernLoot) {
+            // 26.3 replaced function/condition arrays with modifier/predicate codecs.
+            def convertLoot
+            convertLoot = { value ->
+                if (value instanceof List) return value.collect { convertLoot(it) }
+                if (!(value instanceof Map)) return value
+                value.collectEntries { key, child ->
+                    def converted = convertLoot(child)
+                    switch (key) {
+                        case 'functions':
+                            return [modifier: converted.size() == 1 ? converted[0] : converted]
+                        case 'conditions':
+                            return [condition: converted.size() == 1 ? converted[0] :
+                                [type: 'minecraft:all_of', terms: converted]]
+                        case 'function':
+                        case 'condition':
+                            return [type: converted]
+                        default:
+                            return [(key): converted]
+                    }
+                }
+            }
+            fileTree(new File(shared, 'data/reterra/loot_table')).matching { include '**/*.json' }.each { source ->
+                def relative = new File(shared, 'data/reterra/loot_table').toPath().relativize(source.toPath()).toString().replace('\\', '/')
+                writeJson("data/reterra/loot_table/${relative}", convertLoot(parser.parse(source)))
+            }
+        }
+        if (modernItems) {
+            fileTree(new File(shared, 'assets/reterra/models/item')).matching { include '*.json' }.each { source ->
+                writeJson("assets/reterra/items/${source.name}",
+                    [model: [type: 'minecraft:model', model: "reterra:item/${source.name - '.json'}"]])
+            }
+        }
+    }
+}
+
+processResources {
+    from(rootProject.file('src/main/resources'))
+    from(generateTargetResources)
+    eachFile { entry ->
+        def overridden = (modernRecipes && (entry.path.startsWith('data/reterra/recipe/') ||
+            entry.path.startsWith('data/reterra/worldgen/biome/'))) ||
+            (modernLoot && entry.path.startsWith('data/reterra/loot_table/')) ||
+            (registeredRules && entry.path == 'reterra.mixins.json')
+        if (overridden && !entry.file.toPath().startsWith(targetResources.get().asFile.toPath())) entry.exclude()
+    }
+    def metadata = [version: project.version.toString(),
+        minecraft_compatibility: releaseCompatibility,
+        loader_version: releaseLoader, java_version: javaVersion.toString()]
+    inputs.properties(metadata)
+    filesMatching('fabric.mod.json') { expand metadata }
+}
+tasks.withType(JavaCompile).configureEach { options.release = javaVersion }
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
+    withSourcesJar()
+}
+test { useJUnitPlatform() }
+jar { from(rootProject.file('LICENSE')) { rename { "${it}_${project.base.archivesName.get()}" } } }
+
+
+def animationWorld = rootProject.layout.projectDirectory.dir(
+    ".tools/previews/${minecraftVersion}/animation/saves/AnimationCheck")
+def prepareAnimationWorld = tasks.register('prepareAnimationWorld', Copy) {
+    group = 'verification'
+    description = 'Create the disposable animation world on the first preview run.'
+    from(rootProject.file('src/clienttest/resources/animation-world/level.dat'))
+    into(animationWorld)
+    onlyIf { !animationWorld.file('level.dat').asFile.exists() }
+}
+
+def uiWorld = rootProject.layout.projectDirectory.dir(
+    ".tools/previews/${minecraftVersion}/ui/saves/UiCheck")
+def prepareUiWorld = tasks.register('prepareUiWorld', Copy) {
+    group = 'verification'
+    description = 'Create the disposable menu-preview world on the first run.'
+    from(rootProject.file('src/clienttest/resources/animation-world/level.dat'))
+    into(uiWorld)
+    onlyIf { !uiWorld.file('level.dat').asFile.exists() }
+}
+
+def preparePreviewOptions = tasks.register('preparePreviewOptions') {
+    group = 'verification'
+    description = 'Mute disposable preview clients and skip first-launch onboarding.'
+    doLast {
+        ['ui', 'animation'].each { preview ->
+            def optionsFile = rootProject.file(".tools/previews/${minecraftVersion}/${preview}/options.txt")
+            optionsFile.parentFile.mkdirs()
+            def lines = optionsFile.exists() ? optionsFile.readLines('UTF-8') : []
+            def options = ['onboardAccessibility': 'false', 'soundCategory_master': '0.0',
+                           'pauseOnLostFocus': 'false']
+            lines.removeAll { line -> options.keySet().any { key -> line.startsWith(key + ':') } }
+            options.each { key, value -> lines.add("${key}:${value}") }
+            optionsFile.setText(lines.join('\n') + '\n', 'UTF-8')
+        }
+    }
+}
+
+sourceSets {
+    clienttest {
+        compileClasspath += sourceSets.main.compileClasspath + sourceSets.main.output
+        runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.main.output
+    }
+    gametest {
+        compileClasspath += sourceSets.main.compileClasspath + sourceSets.main.output
+        runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.main.output
+    }
+}
+
+loom {
+    mods {
+        reterra { sourceSet sourceSets.main }
+        reterra_test { sourceSet sourceSets.gametest }
+        reterra_preview { sourceSet sourceSets.clienttest }
+    }
+    runs {
+        uiPreview {
+            client()
+            source sourceSets.clienttest
+            runDir "../../.tools/previews/${minecraftVersion}/ui"
+            vmArg '-Dreterra.ui-preview=true'
+            vmArg "-Dreterra.ui-start-case=${providers.gradleProperty('reterra.uiStartCase').getOrElse('0')}"
+            programArgs '--width', '1200', '--height', '800', '--quickPlaySingleplayer', 'UiCheck'
+        }
+        gametest {
+            server()
+            name 'ReTerra Game Tests'
+            source sourceSets.gametest
+            runDir 'build/gametest'
+            vmArg '-Dfabric-api.gametest'
+            vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory.file('reports/gametest.xml').get().asFile}"
+        }
+        animationPreview {
+            client()
+            source sourceSets.clienttest
+            runDir "../../.tools/previews/${minecraftVersion}/animation"
+            vmArg '-Dreterra.animation-preview=true'
+            programArgs '--width', '1200', '--height', '800', '--quickPlaySingleplayer', 'AnimationCheck'
+        }
+    }
+}
+
+tasks.named('runUiPreview') { dependsOn prepareUiWorld, preparePreviewOptions }
+tasks.named('runAnimationPreview') { dependsOn prepareAnimationWorld, preparePreviewOptions }
+
+
+// The Mojang-named sources are shared by the 26.x targets. Keep the tested
+// Yarn sources separate so mapping changes cannot alter a 1.21 release.
+sourceSets.each { sourceSet ->
+    def modernRoot = rootProject.file("src26/${sourceSet.name}")
+    def suffix = sourceSet.name == 'main' ? '' : sourceSet.name.capitalize()
+    def prepare = tasks.named("stonecutterPrepare${suffix}") {
+        root.set(modernRoot)
+        source.setFrom(fileTree(modernRoot) { include '**/*.java' })
+    }
+    tasks.named("stonecutterMerge${suffix}") {
+        into(modernRoot)
+    }
+    def generate = tasks.register("generateModern${sourceSet.name.capitalize()}", Sync) {
+        dependsOn prepare
+        from(modernRoot)
+        from(prepare.flatMap { it.destination })
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        into(layout.buildDirectory.dir("generated/modern/${sourceSet.name}"))
+    }
+    sourceSet.java.setSrcDirs([files(generate.map { new File(it.destinationDir, 'java') }).builtBy(generate)])
+    sourceSet.resources.setSrcDirs([])
+    if (sourceSet.name != 'main') {
+        sourceSet.resources.srcDir(rootProject.file("src/${sourceSet.name}/resources"))
+    }
+}

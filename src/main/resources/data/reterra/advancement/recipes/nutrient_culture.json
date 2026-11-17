@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "discovery": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:wheat"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "reterra:nutrient_culture"
+    ]
+  }
+}

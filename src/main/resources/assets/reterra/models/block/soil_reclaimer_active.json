@@ -1,0 +1,120 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "body": "reterra:block/soil_reclaimer_side",
+    "front": "reterra:block/soil_reclaimer_front",
+    "top": "reterra:block/soil_reclaimer_top",
+    "bottom": "minecraft:block/smooth_stone",
+    "particle": "reterra:block/soil_reclaimer_side",
+    "lamp": "reterra:block/indicator_active",
+    "crystal": "minecraft:block/emerald_block"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#body",
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#body",
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#body",
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#top",
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#bottom",
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "from": [
+        11,
+        12,
+        -0.02
+      ],
+      "to": [
+        13,
+        14,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lamp"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        12,
+        16
+      ],
+      "to": [
+        5,
+        14,
+        16.02
+      ],
+      "faces": {
+        "south": {
+          "texture": "#lamp"
+        }
+      }
+    },
+    {
+      "from": [
+        -0.02,
+        12,
+        3
+      ],
+      "to": [
+        0,
+        14,
+        5
+      ],
+      "faces": {
+        "west": {
+          "texture": "#lamp"
+        }
+      }
+    },
+    {
+      "from": [
+        16,
+        12,
+        11
+      ],
+      "to": [
+        16.02,
+        14,
+        13
+      ],
+      "faces": {
+        "east": {
+          "texture": "#lamp"
+        }
+      }
+    }
+  ]
+}

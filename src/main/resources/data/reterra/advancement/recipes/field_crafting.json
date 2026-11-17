@@ -1,0 +1,54 @@
+{
+  "criteria": {
+    "compost": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "reterra:organic_compost"
+          }
+        ]
+      }
+    },
+    "iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:iron_ingot"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "compost",
+      "iron"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "reterra:compost_from_mushrooms",
+      "reterra:compost_from_decay",
+      "reterra:compost_from_wheat",
+      "reterra:compost_from_carrots",
+      "reterra:compost_from_potatoes",
+      "reterra:compost_from_leaves",
+      "reterra:compost_from_pumpkin",
+      "reterra:compost_from_melon",
+      "reterra:fertile_soil",
+      "reterra:fertile_soil_from_coarse",
+      "reterra:nutrient_culture",
+      "reterra:water_filter",
+      "reterra:environmental_scanner",
+      "reterra:grass_culture",
+      "reterra:archive_fragment",
+      "reterra:soil_reclaimer",
+      "reterra:restoration_core",
+      "reterra:water_restorer",
+      "reterra:revival_chamber",
+      "reterra:heart_of_the_world"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "reterra:soil_reclaimer",
+    "reterra:restoration_core",
+    "reterra:water_restorer",
+    "reterra:revival_chamber",
+    "reterra:heart_of_the_world"
+  ]
+}

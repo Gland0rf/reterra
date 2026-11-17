@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "result": {
+    "id": "reterra:grass_culture",
+    "count": 1
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:wheat_seeds"
+    },
+    {
+      "item": "reterra:organic_compost"
+    }
+  ]
+}

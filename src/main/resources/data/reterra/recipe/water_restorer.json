@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "result": {
+    "id": "reterra:water_restorer",
+    "count": 1
+  },
+  "pattern": [
+    "CPC",
+    "IFI",
+    "CBC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "F": {
+      "item": "reterra:water_filter"
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    }
+  }
+}

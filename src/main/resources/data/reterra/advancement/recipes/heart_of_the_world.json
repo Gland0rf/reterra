@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "discovery": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "reterra:restoration_core"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "reterra:heart_of_the_world"
+    ]
+  }
+}

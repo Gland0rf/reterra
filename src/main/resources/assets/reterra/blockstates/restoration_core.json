@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,supplied=false": {
+      "model": "reterra:block/restoration_core"
+    },
+    "lit=false,supplied=true": {
+      "model": "reterra:block/restoration_core_stored"
+    },
+    "lit=true,supplied=false": {
+      "model": "reterra:block/restoration_core_active"
+    },
+    "lit=true,supplied=true": {
+      "model": "reterra:block/restoration_core_active"
+    }
+  }
+}

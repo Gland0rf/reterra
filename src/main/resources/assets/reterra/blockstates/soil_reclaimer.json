@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,supplied=false": {
+      "model": "reterra:block/soil_reclaimer"
+    },
+    "lit=false,supplied=true": {
+      "model": "reterra:block/soil_reclaimer_stored"
+    },
+    "lit=true,supplied=false": {
+      "model": "reterra:block/soil_reclaimer_active"
+    },
+    "lit=true,supplied=true": {
+      "model": "reterra:block/soil_reclaimer_active"
+    }
+  }
+}

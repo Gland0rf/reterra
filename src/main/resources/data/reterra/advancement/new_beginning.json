@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "id": "reterra:heart_of_the_world"
+    },
+    "title": {
+      "text": "A New Beginning"
+    },
+    "description": {
+      "text": "The world begins to breathe again."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "discovery": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "reterra:reclaimed"
+}

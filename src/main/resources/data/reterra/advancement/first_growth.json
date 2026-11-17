@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:grass_block"
+    },
+    "title": {
+      "text": "Living Ground"
+    },
+    "description": {
+      "text": "The first green breaks through."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "discovery": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "reterra:soil_science"
+}

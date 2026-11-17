@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "reterra",
+  "version": "${version}",
+  "name": "ReTerra",
+  "description": "Restore a barren Overworld through farming, machines and returning wildlife.",
+  "icon": "assets/reterra/icon.png",
+  "authors": ["ReTerra contributors"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {"main": ["dev.reterra.ReTerra"],"client":["dev.reterra.client.ReTerraClient"]},
+  "mixins": ["reterra.mixins.json"],
+  "depends": {"fabricloader": ">=${loader_version}", "minecraft": "${minecraft_compatibility}", "java": ">=${java_version}", "fabric-api": "*"}
+}
