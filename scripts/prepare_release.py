@@ -83,7 +83,8 @@ def prepare_assets(release, directory):
              '| File | Minecraft versions |', '| --- | --- |']
     notes.extend(f"| `{item['file']}` | {', '.join(item['minecraft_versions'])} |"
                  for item in release['releases'])
-    changelog = (ROOT / 'CHANGELOG.md').read_text(encoding='utf-8')
+    changelog_path = ROOT / 'CHANGELOG.md'
+    changelog = changelog_path.read_text(encoding='utf-8-sig') if changelog_path.is_file() else ''
     # Use only the section for this release, never notes from a previous version.
     sections = re.split(r'(?m)^# ', '\n' + changelog)
     for section in sections:
