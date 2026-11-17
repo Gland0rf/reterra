@@ -27,11 +27,6 @@ Healthy regions become self-sustaining and gradually spread into the surrounding
 - Abandoned structures containing seeds, supplies and preserved animal samples.
 - Farming and composting that let you produce your own restoration materials.
 - Restoration machines with animated effects and dedicated menus.
-- Habitat goals that reward planting and building.
-- In-game Field Notes with recipes, machine instructions and progress tracking.
-- Shared restoration progress for cooperative multiplayer.
-
-Caves, ores, mining, building and combat remain part of survival. You decide where to settle and what the recovering world looks like.
 
 ## Installation
 
@@ -42,11 +37,3 @@ Caves, ores, mining, building and combat remain part of survival. You decide whe
 5. Start Minecraft with Fabric and create a new world.
 
 For multiplayer, install ReTerra and Fabric API on both the server and every player's client.
-
-## Your first world
-
-Create a fresh world for the intended experience. Barren terrain is enabled by default.
-
-Follow the farmhouse compass, search the pantry and keep some vegetables for planting. Press **J** to open Field Notes whenever you need recipes or your next restoration goal.
-
-ReTerra is in beta. Progression and balance may change between updates.

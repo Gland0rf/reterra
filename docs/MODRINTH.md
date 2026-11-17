@@ -37,3 +37,5 @@ This is a beta build. The project is still being balanced through survival playt
 Upload each JAR collected in root `build/libs/` once. Select every Minecraft version listed for that file in the [README](../README.md#minecraft-versions). There are currently 10 release files for 17 Minecraft versions. For example, `reterra-0.9.0+mc1.21.6-1.21.8.jar` supports 1.21.6, 1.21.7 and 1.21.8.
 
 Players install the same shared ReTerra file with Fabric API matching their Minecraft version. Rebuild with `stageRelease` after changing `mod_version`; compatibility checks and filenames update automatically. Adding a new Minecraft version still requires porting and testing before listing it as supported.
+
+Pushing a matching version tag automatically creates a GitHub release with these files after the checks pass. See [release instructions](RELEASING.md). Uploading those files to Modrinth remains a separate manual step.

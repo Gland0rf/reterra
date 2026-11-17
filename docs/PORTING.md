@@ -1,6 +1,6 @@
 # Porting notes
 
-The build has 17 targets: 1.21, 1.21.1 through 1.21.11, 26.1, 26.1.1, 26.1.2, 26.2 and 26.3. Dependency versions are in `versions/<version>/version.properties`.
+The build has 17 targets: 1.21, 1.21.1 through 1.21.11, 26.1, 26.1.1, 26.1.2, 26.2 and 26.3. Enabled targets are in `gradle/minecraft-targets.json`, shared by Gradle and the GitHub Actions matrix. Dependency versions are in `versions/<version>/version.properties`.
 
 ## Source layout
 
