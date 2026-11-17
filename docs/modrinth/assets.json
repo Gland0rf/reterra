@@ -1,0 +1,34 @@
+{
+  "images": [
+    {
+      "file": "icon.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 45300,
+      "sha256": "e230c5a48d0184fbe15cc908e673aeae135b24df190cc7470a6ac9182ffdef69"
+    },
+    {
+      "file": "banner.png",
+      "width": 2172,
+      "height": 724,
+      "bytes": 1464862,
+      "sha256": "fe3e775e0b3607377fa83ddeac1679926e1d8780d119d4e5727a088fc1226cc0"
+    },
+    {
+      "file": "gallery-machines.png",
+      "width": 1200,
+      "height": 800,
+      "bytes": 582112,
+      "sha256": "15a0fa097c75beb98617ec4b40f39a67cd796a8c201fd3096b60a490cbb67e0d"
+    },
+    {
+      "file": "gallery-heart.png",
+      "width": 1200,
+      "height": 800,
+      "bytes": 559351,
+      "sha256": "9f1d81d931132f71e08fbb4f601fe0df46cb79089883ab747159b98f6a8fde2a"
+    }
+  ],
+  "icon_export_quality": 90,
+  "gallery_source": "Existing unaltered in-game demonstration-world captures"
+}
