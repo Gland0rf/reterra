@@ -18,7 +18,7 @@ Gradle 9.8 and Loom 1.19 require Java 25 to run. The 1.21 targets still compile 
 
 The modern build uses the non-remapping Loom plugin, `implementation` dependencies and the ordinary `jar` task. It does not request Yarn mappings or ship a remapping reference map. Both families support `stageRelease`, which copies the release JAR into the root `build/libs` folder.
 
-Shared releases are defined in `gradle/release-groups.json`. Both build families apply `gradle/release.gradle` to set the shared artifact version, Minecraft compatibility and highest required Fabric Loader version. Selecting a target also includes its group members. Each member keeps its own compile dependencies and test runs.
+Shared releases are defined in `gradle/release-groups.json`. Both build families apply `gradle/release.gradle` to set the shared artifact version, Minecraft compatibility and highest required Fabric Loader version. That Loader version is used for both the dependency and release metadata, so development clients and test servers satisfy the shared JAR's requirement. Selecting a target also includes its group members. Each member keeps its own Minecraft and Fabric API dependencies and test runs.
 
 `stageRelease` delegates to the group's first target, builds every member, and compares JAR entry hashes, including classes, assets, recipes, metadata and mixin data. It refuses to stage a group that differs. On success it copies one shared file and removes obsolete per-target files for that group and mod version from `build/libs/`. Files under each target's build directory are development artifacts; upload the files collected in root `build/libs/`.
 

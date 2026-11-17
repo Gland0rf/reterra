@@ -17,7 +17,7 @@ base { archivesName = project.archives_base_name }
 repositories { mavenCentral() }
 dependencies {
     minecraft "com.mojang:minecraft:${minecraftVersion}"
-    implementation "net.fabricmc:fabric-loader:${target.getProperty('loader_version')}"
+    implementation "net.fabricmc:fabric-loader:${releaseLoader}"
     implementation "net.fabricmc.fabric-api:fabric-api:${target.getProperty('fabric_version')}"
     testImplementation platform('org.junit:junit-bom:5.11.4')
     testImplementation 'org.junit.jupiter:junit-jupiter'
