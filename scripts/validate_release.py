@@ -1,6 +1,6 @@
 """Check the built mod's assets and packaging; uses only the Python standard library.
 
-Usage: python scripts/validate_release.py build/libs/reterra-0.9.0+mc1.21.1.jar
+Usage: python scripts/validate_release.py build/libs/reterra-0.1.0+mc1.21.1.jar
        Add --minecraft-jar PATH to also check referenced vanilla models/textures.
 """
 
