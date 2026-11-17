@@ -20,7 +20,9 @@ public final class FieldGuideScreen extends Screen {
     {
       "Follow the farmhouse compass. Search the pantry for food and a Seed Pouch. Use the pouch to"
           + " recover wheat seeds and a mushroom.",
-      "Keep some carrots and potatoes to plant."
+      "Keep some carrots and potatoes to plant.",
+      "To follow a route, hold the Field Notes item from a chest in your main hand and a compass"
+          + " in your offhand. Right-click the notes to set the compass."
     },
     {
       "A log with a mushroom or rotten flesh makes compost. Mix one compost with four gravel or"
@@ -30,7 +32,9 @@ public final class FieldGuideScreen extends Screen {
     {
       "Bottle, wheat seeds and compost make grass culture. Use it on dirt. Refill the bottle from"
           + " grass.",
-      "Craft a Reclaimer, then a Core. Recipes shows the ingredients; Build shows the supports."
+      "Craft a Reclaimer, then a Core. Recipes shows the ingredients; Build shows the supports.",
+      "A registered Core restores soil automatically when supplied. You plant the grass, crops"
+          + " and trees."
     },
     {
       "Plant crops, grow trees, add flowers and make a pond inside the Core's boundary. Habitat"
@@ -38,9 +42,14 @@ public final class FieldGuideScreen extends Screen {
       "For more flowers, use compost or bone meal on grass."
     },
     {
-      "Build a Revival Chamber inside a registered region. Follow Field Notes with a compass to"
-          + " find preserved samples in an Archive.",
-      "Add the sample's food, water and nutrient culture. A pair emerges after 20 seconds."
+      "Craft a Control Circuit from copper, iron, redstone and glass, or find one in a Research"
+          + " Station. Recipes shows the pattern.",
+      "Seed Vault and Research Station notes lead to Biological Archives for animal samples."
+          + " Hold the notes in your main hand, a compass in your offhand, then right-click the notes.",
+      "One glass bottle, one wheat and one bone meal make a Nutrient Culture. Research Stations"
+          + " also hold two cultures.",
+      "Build a Revival Chamber inside a registered region. Add the sample's food, water and"
+          + " nutrient culture. A pair emerges after 20 seconds."
     },
     {
       "Keep two animal species and a healthy habitat through the trial. Feeding adults, tending"

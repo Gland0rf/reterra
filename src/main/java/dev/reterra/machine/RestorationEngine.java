@@ -193,7 +193,15 @@ public final class RestorationEngine {
   }
 
   private static void core(ServerWorld w, RestorationState state, Machine m, boolean operating) {
-    if (operating) restoreTerrain(w, state, m);
+    if (!operating) m.restorationNotified = false;
+    int changed = operating ? restoreTerrain(w, state, m) : 0;
+    if (changed > 0 && !m.restorationNotified) {
+      for (var player : w.getPlayers())
+        if (bounds(m).contains(dev.reterra.compat.WorldAccess.position(player))) {
+          player.sendMessage(net.minecraft.text.Text.translatable("message.reterra.restoration_started"), true);
+          m.restorationNotified = true;
+        }
+    }
     int sector = Math.floorMod(m.sectorCursor++, 9);
     int cx = (m.pos.getX() >> 4) + sector % 3 - 1, cz = (m.pos.getZ() >> 4) + sector / 3 - 1;
     if (!w.getChunkManager().isChunkLoaded(cx, cz)) return;

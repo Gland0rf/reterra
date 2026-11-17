@@ -183,6 +183,7 @@ public final class RestorationState extends PersistentState {
     public Runnable dirty = () -> {};
     public boolean production = true, reclaimed;
     public long lastWildlifeCheck;
+    public boolean restorationNotified; // Session-only; resume notices never affect saved progression.
     public final Set<String> restoredSpecies = new HashSet<>();
     public String biome = "minecraft:plains";
     public Ecology.Family family = Ecology.Family.PLAINS;

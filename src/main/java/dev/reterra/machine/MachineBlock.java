@@ -40,7 +40,9 @@ public final class MachineBlock extends Block {
             : machine.reclaimed
                 || (!machine.paused
                     && Multiblocks.issue(world, machine.pos, machine.kind) == 0
-                    && (machine.kind.equals("revival_chamber")
+                    && (machine.kind.equals("restoration_core")
+                        ? MachineLogic.status(world, machine) == MachineLogic.Status.READY
+                        : machine.kind.equals("revival_chamber")
                         ? !machine.pendingSpecies.isEmpty()
                         : machine.fuel > 0
                             && MachineLogic.hasWaterSupply(world, machine)

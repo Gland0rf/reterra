@@ -37,3 +37,8 @@ Healthy regions become self-sustaining and gradually spread into the surrounding
 5. Start Minecraft with Fabric and create a new world.
 
 For multiplayer, install ReTerra and Fabric API on both the server and every player's client.
+## Testing the Heart
+
+With cheats enabled or operator permission, look at an assembled Heart and run `/reterra heart activate`. This skips the four-ecosystem requirement and plays the normal awakening animation. The Heart still needs its supports.
+
+You can also target it with `/reterra heart activate <x> <y> <z>`. Use `/reterra heart disable` to stop its effects and reset the animation for another test.

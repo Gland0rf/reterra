@@ -383,6 +383,8 @@ public final class MachineScreen extends HandledScreen<MachineScreenHandler> {
     if (handler.value(24) == MachineLogic.Status.NO_SPACE.ordinal())
       return "Animals need room to emerge";
     if (handler.value(24) == MachineLogic.Status.REVIVED.ordinal()) return "A pair has emerged";
+    if (handler.kind() == 1 && handler.value(8) == MachineLogic.Status.READY.ordinal())
+      return Text.translatable("status.reterra.restoring").getString();
     return Text.translatable(
             "status.reterra."
                 + MachineLogic.Status.values()[
@@ -722,7 +724,7 @@ public final class MachineScreen extends HandledScreen<MachineScreenHandler> {
       case CULTURE -> "Grass culture required.";
       case READY ->
           handler.kind() == 1
-              ? nextGoal()
+              ? "Restoring soil automatically. Plant grass and crops while it works."
               : handler.kind() == 3
                   ? "Ready to incubate. Clear grass beside the chamber."
                   : handler.kind() == 0

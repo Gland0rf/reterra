@@ -43,7 +43,10 @@ public final class ReTerra implements ModInitializer {
     net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPED.register(
         server -> dev.reterra.world.SiteLocator.clear());
     CommandRegistrationCallback.EVENT.register(
-        (dispatcher, access, environment) -> dev.reterra.world.SiteLocator.register(dispatcher));
+        (dispatcher, access, environment) -> {
+          dev.reterra.world.SiteLocator.register(dispatcher);
+          dev.reterra.world.HeartCommands.register(dispatcher);
+        });
     ServerEntityEvents.ENTITY_LOAD.register(
         (entity, world) -> {
           if (entity.getCommandTags().contains(dev.reterra.world.HeartAwakening.CRYSTAL_TAG)) {

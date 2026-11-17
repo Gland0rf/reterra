@@ -380,6 +380,8 @@ public final class MachineScreen extends AbstractContainerScreen<MachineScreenHa
     if (menu.value(24) == MachineLogic.Status.NO_SPACE.ordinal())
       return "Animals need room to emerge";
     if (menu.value(24) == MachineLogic.Status.REVIVED.ordinal()) return "A pair has emerged";
+    if (menu.kind() == 1 && menu.value(8) == MachineLogic.Status.READY.ordinal())
+      return Component.translatable("status.reterra.restoring").getString();
     return Component.translatable(
             "status.reterra."
                 + MachineLogic.Status.values()[
@@ -719,7 +721,7 @@ public final class MachineScreen extends AbstractContainerScreen<MachineScreenHa
       case CULTURE -> "Grass culture required.";
       case READY ->
           menu.kind() == 1
-              ? nextGoal()
+              ? "Restoring soil automatically. Plant grass and crops while it works."
               : menu.kind() == 3
                   ? "Ready to incubate. Clear grass beside the chamber."
                   : menu.kind() == 0

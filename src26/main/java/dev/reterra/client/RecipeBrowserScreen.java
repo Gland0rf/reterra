@@ -283,6 +283,8 @@ public final class RecipeBrowserScreen extends Screen {
     if (id.endsWith("_sample")) return "Preserved in biological archives.";
     return switch (id) {
       case "recovery_bundle", "wheat_seeds" -> "Recover seeds from an old farmhouse.";
+      case "archive_fragment" -> "Craft with copper, iron, redstone and glass, or find one in a Research Station.";
+      case "nutrient_culture" -> "Craft a glass bottle with wheat and bone meal, or find two in a Research Station.";
       case "charcoal" -> "Smelt a log in a furnace.";
       case "glass", "glass_bottle" -> "Smelt sand for glass. Three glass make three bottles.";
       case "iron_ingot", "copper_ingot", "gold_ingot" ->

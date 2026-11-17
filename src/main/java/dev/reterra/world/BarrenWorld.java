@@ -43,7 +43,8 @@ public final class BarrenWorld {
         || s.isOf(Blocks.PODZOL)
         || s.isOf(Blocks.MYCELIUM)
         || s.isOf(Blocks.MOSS_BLOCK)
-        || s.isOf(Blocks.WATER);
+        || s.isOf(Blocks.ICE)
+        || s.getFluidState().isIn(net.minecraft.registry.tag.FluidTags.WATER);
   }
 
   public static boolean lostToCatastrophe(BlockPos pos, BlockState s) {
@@ -53,10 +54,30 @@ public final class BarrenWorld {
             && Ecology.scarHash(pos.getX() ^ (pos.getY() * 31), pos.getZ()) % 41 == 0);
   }
 
+  /** Leave deep remnant water level across columns; never punch random holes in a river. */
+  public static BlockState barrenState(BlockPos pos, BlockState original, boolean river, int waterline) {
+    boolean drained = river && pos.getY() > waterline;
+    if (original.isOf(Blocks.WATER) || original.isOf(Blocks.ICE))
+      return drained ? Blocks.AIR.getDefaultState() : original;
+    if (lostToCatastrophe(pos, original)) {
+      boolean submerged = original.getFluidState().isIn(net.minecraft.registry.tag.FluidTags.WATER);
+      return submerged && !drained ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState();
+    }
+    if (original.contains(net.minecraft.state.property.Properties.WATERLOGGED))
+      return drained ? original.with(net.minecraft.state.property.Properties.WATERLOGGED, false) : original;
+    if (original.isIn(BlockTags.PLANKS) || original.isOf(Blocks.COARSE_DIRT)) return original;
+    if (original.isIn(BlockTags.DIRT) || original.isOf(Blocks.FARMLAND)
+        || original.isOf(Blocks.DIRT_PATH) || original.isOf(Blocks.MOSS_BLOCK))
+      return (Ecology.isScar(pos.getX(), pos.getZ()) ? Blocks.GRAVEL : Blocks.COARSE_DIRT)
+          .getDefaultState();
+    return original;
+  }
+
   public static void transform(StructureWorldAccess world, Chunk chunk) {
     if (!world.toServerWorld().getRegistryKey().equals(World.OVERWORLD)
         || !WorldOptions.barren(world.toServerWorld())) return;
     int startX = chunk.getPos().getStartX(), startZ = chunk.getPos().getStartZ();
+    int riverWaterline = world.toServerWorld().getSeaLevel() - 9;
     BlockPos.Mutable p = new BlockPos.Mutable();
     ChunkSection[] sections = chunk.getSectionArray();
     for (int section = 0; section < sections.length; section++) {
@@ -67,26 +88,15 @@ public final class BarrenWorld {
           p.set(startX + x, 64, startZ + z);
           String biome = world.getBiome(p).getKey().map(k -> k.getValue().getPath()).orElse("");
           boolean river = biome.equals("river") || biome.equals("frozen_river");
-          boolean pool =
-              Ecology.scarHash(Math.floorDiv(startX + x, 4), Math.floorDiv(startZ + z, 4)) % 9 == 0;
           for (int y = 0; y < 16; y++) {
             BlockState s = sections[section].getBlockState(x, y, z);
             if (!affected(s)) continue;
             p.set(startX + x, baseY + y, startZ + z);
-            BlockState target = null;
-            if (s.isOf(Blocks.WATER)) {
-              if (river && !pool && p.getY() >= 55) target = Blocks.AIR.getDefaultState();
-            } else if (lostToCatastrophe(p, s)) target = Blocks.AIR.getDefaultState();
-            else if (s.isIn(BlockTags.PLANKS)) continue;
-            else if (s.isOf(Blocks.COARSE_DIRT)) continue;
-            else
-              target =
-                  (Ecology.isScar(p.getX(), p.getZ()) ? Blocks.GRAVEL : Blocks.COARSE_DIRT)
-                      .getDefaultState();
+            BlockState target = barrenState(p, s, river, riverWaterline);
             //? if <1.21.5 {
-            if (target != null) chunk.setBlockState(p, target, false);
+            if (!target.equals(s)) chunk.setBlockState(p, target, false);
             //? } else {
-            /*if (target != null) chunk.setBlockState(p, target, 0);
+            /*if (!target.equals(s)) chunk.setBlockState(p, target, 0);
             *///? }
           }
         }

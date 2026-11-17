@@ -28,10 +28,18 @@ public final class HeartAwakening {
   private HeartAwakening() {}
 
   public static boolean start(ServerWorld world, RestorationState.Machine machine) {
+    return start(world, machine, false);
+  }
+
+  public static boolean startForTesting(ServerWorld world, RestorationState.Machine machine) {
+    return start(world, machine, true);
+  }
+
+  private static boolean start(ServerWorld world, RestorationState.Machine machine, boolean testing) {
     var state = RestorationState.get(world);
     if (state.heartActivated
         || state.heartAwakening > 0
-        || state.completed.size() != 4
+        || (!testing && state.completed.size() != 4)
         || !world.getBlockState(machine.pos).isOf(Content.HEART)
         || Multiblocks.issue(world, machine.pos, machine.kind) != 0) return false;
     state.heartPos = machine.pos;

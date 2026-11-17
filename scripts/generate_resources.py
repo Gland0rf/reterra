@@ -11,14 +11,14 @@ def write(path, value):
 ITEMS = {
     "organic_compost": ("Organic Compost", "Mix with coarse dirt or gravel to make soil."),
     "grass_culture": ("Grass Culture", "Use on dirt to start a grass patch."),
-    "nutrient_culture": ("Nutrient Culture", "Feeds the Revival Chamber. Also a machine fuel."),
+    "nutrient_culture": ("Nutrient Culture", "Craft a glass bottle with wheat and bone meal. Also found in Research Stations."),
     "water_filter": ("Charcoal Filter", "For the Water Restorer. Lasts eight cycles."),
-    "archive_fragment": ("Control Circuit", "A controller for the Revival Chamber."),
+    "archive_fragment": ("Control Circuit", "Craftable; also found in Research Stations."),
     "sheep_sample": ("Sheep Sample", "Preserved tissue for the Revival Chamber."),
     "cow_sample": ("Cow Sample", "Preserved tissue for the Revival Chamber."),
     "chicken_sample": ("Chicken Sample", "Preserved tissue for the Revival Chamber."),
     "bee_sample": ("Bee Sample", "Preserved tissue for the Revival Chamber."),
-    "field_journal": ("Field Notes", "Use with a compass in your other hand."),
+    "field_journal": ("Field Notes", "Hold notes in your main hand and a compass in your offhand. Right-click the notes."),
     "recovery_bundle": ("Seed Pouch", "Use to open. Save the seeds for planting."),
     "environmental_scanner": ("Environmental Scanner", "Surveys sites before Core placement."),
 }
@@ -26,6 +26,7 @@ BLOCKS = {"soil_reclaimer": "Soil Reclaimer", "restoration_core": "Restoration C
 lang = {"itemGroup.reterra": "ReTerra - Restoration", "hint.reterra.machine": "Right-click for controls.",
         "hint.reterra.sterile_soil": "Sterile soil; requires compost.",
         "hint.reterra.discovery": "No registered region here."}
+lang.update({'status.reterra.restoring': 'Restoring soil', 'message.reterra.restoration_started': 'Restoration started. Your Core is restoring soil.'})
 lang.update({"key.reterra.guide":"Open ReTerra Field Guide", "category.reterra":"ReTerra", "key.category.reterra.reterra":"ReTerra",
     "gamerule.reterra.barren_world":"ReTerra barren terrain",
     "gamerule.reterra.barren_world.description":"Generate a dead Overworld for restoration.",

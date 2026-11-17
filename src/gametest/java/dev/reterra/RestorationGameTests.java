@@ -27,6 +27,54 @@ public class RestorationGameTests implements FabricGameTest {
 /*public class RestorationGameTests {
   private static final String EMPTY_STRUCTURE = "fabric-gametest-api-v1:empty";
 *///? }
+  //? if <1.21.5 {
+  @GameTest(templateName = EMPTY_STRUCTURE)
+  //? } else {
+  /*@GameTest(structure = EMPTY_STRUCTURE, maxTicks = 100)
+  *///? }
+  public void riverGenerationLeavesOneConsistentRemnantWaterline(TestContext test) {
+    var water = Blocks.WATER.getDefaultState();
+    for (int x = -8; x <= 8; x++)
+      for (int z = -8; z <= 8; z++)
+        for (int y = 53; y <= 62; y++) {
+          var result = dev.reterra.world.BarrenWorld.barrenState(new BlockPos(x, y, z), water, true, 54);
+          TestChecks.isTrue(test, y > 54 ? result.isAir() : result.isOf(Blocks.WATER),
+              "River columns must share a low waterline, with no full-height random pools.");
+        }
+    var ocean = dev.reterra.world.BarrenWorld.barrenState(new BlockPos(0, 62, 0), water, false, 54);
+    TestChecks.isTrue(test, ocean.equals(water), "Oceans and ordinary lakes must retain their water.");
+    test.complete();
+  }
+
+  //? if <1.21.5 {
+  @GameTest(templateName = EMPTY_STRUCTURE)
+  //? } else {
+  /*@GameTest(structure = EMPTY_STRUCTURE, maxTicks = 100)
+  *///? }
+  public void underwaterPlantRemovalPreservesWaterAndDrainedRootsDoNotLeak(TestContext test) {
+    var surface = new BlockPos(0, 62, 0);
+    var seagrass = Blocks.SEAGRASS.getDefaultState();
+    TestChecks.isTrue(test,
+        dev.reterra.world.BarrenWorld.barrenState(surface, seagrass, false, 54).isOf(Blocks.WATER),
+        "Stripping underwater vegetation must not punch holes in ocean or lake water.");
+    TestChecks.isTrue(test,
+        dev.reterra.world.BarrenWorld.barrenState(surface, seagrass, true, 54).isAir(),
+        "Plants in a dry river must not leave floating source blocks.");
+    var roots = Blocks.MANGROVE_ROOTS.getDefaultState()
+        .with(net.minecraft.state.property.Properties.WATERLOGGED, true);
+    var dry = dev.reterra.world.BarrenWorld.barrenState(surface, roots, true, 54);
+    TestChecks.isTrue(test, dry.isOf(Blocks.MANGROVE_ROOTS)
+        && !dry.get(net.minecraft.state.property.Properties.WATERLOGGED),
+        "Keep the old roots but remove water above a drained river's waterline.");
+    TestChecks.isTrue(test,
+        dev.reterra.world.BarrenWorld.barrenState(surface, Blocks.ICE.getDefaultState(), true, 54).isAir(),
+        "Frozen rivers must not retain floating ice over dry channels.");
+    TestChecks.isTrue(test,
+        dev.reterra.world.BarrenWorld.barrenState(surface, Blocks.ICE.getDefaultState(), false, 54).isOf(Blocks.ICE),
+        "Ice outside drained rivers must remain intact.");
+    test.complete();
+  }
+
   //? if >=1.21.11 {
   /*@net.fabricmc.fabric.api.gametest.v1.GameTest(structure = EMPTY_STRUCTURE, maxTicks = 100)
   public void legacyTerrainChoiceSurvivesGameRuleMigration(TestContext test) {
@@ -962,8 +1010,19 @@ public class RestorationGameTests implements FabricGameTest {
     state.heartAwakening = 0;
     var previousCrystal = state.heartCrystal;
     state.machines.put(p.asLong(), m);
-    state.completed.addAll(java.util.EnumSet.allOf(Ecology.Family.class));
+    state.completed.clear();
     state.heartActivated = false;
+    TestChecks.isFalse(test, dev.reterra.world.HeartAwakening.start(w, m),
+        "Normal awakening must still require all four reclaimed ecosystems.");
+    TestChecks.isTrue(test, dev.reterra.world.HeartAwakening.startForTesting(w, m)
+        && state.heartAwakening == 1 && !state.heartActivated && state.completed.isEmpty(),
+        "The testing shortcut starts the real animation without faking ecosystem completion.");
+    TestChecks.isFalse(test, dev.reterra.world.HeartAwakening.startForTesting(w, m),
+        "The test command must not restart an awakening that is already running.");
+    dev.reterra.world.HeartAwakening.disable(w);
+    TestChecks.isTrue(test, state.heartAwakening == 0 && !state.heartActivated
+        && state.completed.isEmpty(), "Disabling the test must preserve ecosystem progress.");
+    state.completed.addAll(java.util.EnumSet.allOf(Ecology.Family.class));
     var player = test.createMockCreativeServerPlayerInWorld();
     dev.reterra.machine.MachineLogic.action(w, m, player, 1);
     TestChecks.isTrue(test, 
