@@ -139,7 +139,7 @@ public final class AnimationRenderCheck implements ClientModInitializer {
             client.options.getViewDistance().setValue(6);
             client.setScreen(null);
             client.getServer().execute(() -> setup(client.getServer().getOverworld()));
-          }F
+          }
           if (!navigationChecked
               && client.currentScreen instanceof dev.reterra.client.MachineScreen machine
               && client.player.currentScreenHandler.getCursorStack().getCount() == 3) {
