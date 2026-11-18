@@ -1251,7 +1251,10 @@ public class RestorationGameTests {
         chamber.pendingSpecies.isEmpty()
             && chamber.getItem(3).isEmpty()
             && dev.reterra.machine.RestorationEngine.animalCount(w, core) == 2,
-        "A finished cycle must produce exactly two adults and consume its sample once.");
+        "A finished cycle must produce exactly two adults and consume its sample once. pending="
+            + chamber.pendingSpecies + ", ticks=" + chamber.revivalTicks + ", feedback=" + chamber.feedback
+            + ", animals=" + dev.reterra.machine.RestorationEngine.animalCount(w, core)
+            + ", ground=" + dev.reterra.machine.RestorationEngine.ground(w, base.getX() + 8, base.getZ() + 8));
     TestChecks.isTrue(test, 
         chamber.water == 0 && chamber.getItem(4).isEmpty() && chamber.getItem(5).isEmpty(),
         "Successful revival consumes its reserved inputs.");
@@ -1603,7 +1606,9 @@ public class RestorationGameTests {
     w.setBlockAndUpdate(p.east().above(), Blocks.OAK_LEAVES.defaultBlockState());
     dev.reterra.world.BarrenWorld.transform(w, w.getChunk(p));
     TestChecks.isFalse(test, 
-        w.getBlockState(p).is(Blocks.GRASS_BLOCK), "Generated surface must be barren.");
+        w.getBlockState(p).is(Blocks.GRASS_BLOCK), "Generated surface must be barren. pos=" + p
+            + ", barren=" + dev.reterra.world.WorldOptions.barren(w)
+            + ", direct=" + dev.reterra.world.BarrenWorld.barrenState(p, Blocks.GRASS_BLOCK.defaultBlockState(), false, 54));
     TestChecks.isTrue(test, 
         w.getBlockState(p.above()).isAir() && w.getBlockState(p.east().above()).isAir(),
         "Generated flowers and leaves must be removed.");

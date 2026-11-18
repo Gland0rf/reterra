@@ -72,6 +72,9 @@ public final class RiverRecovery {
       var b = world.getBlockState(p);
       if (!b.isAir() && !b.is(Blocks.WATER)) {
         if (!(b.is(BlockTags.DIRT)
+            || b.is(Blocks.GRASS_BLOCK)
+            || b.is(Blocks.PODZOL)
+            || b.is(Blocks.MYCELIUM)
             || b.is(Blocks.GRAVEL)
             || b.is(Blocks.SAND)
             || b.is(Blocks.CLAY)

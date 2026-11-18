@@ -21,6 +21,9 @@ public abstract class GenerationAccessMixin {
     if (world.getLevel().dimension().equals(Level.OVERWORLD)
         && !state.is(net.minecraft.world.level.block.Blocks.COARSE_DIRT)
         && (state.is(net.minecraft.tags.BlockTags.DIRT)
+            || state.is(net.minecraft.world.level.block.Blocks.GRASS_BLOCK)
+            || state.is(net.minecraft.world.level.block.Blocks.PODZOL)
+            || state.is(net.minecraft.world.level.block.Blocks.MYCELIUM)
             || state.is(net.minecraft.world.level.block.Blocks.FARMLAND)
             || state.is(net.minecraft.world.level.block.Blocks.DIRT_PATH)
             || state.is(net.minecraft.world.level.block.Blocks.MOSS_BLOCK))) {

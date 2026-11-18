@@ -77,7 +77,9 @@ public final class BarrenWorld {
     if (original.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED))
       return drained ? original.setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED, false) : original;
     if (original.is(BlockTags.PLANKS) || original.is(Blocks.COARSE_DIRT)) return original;
-    if (original.is(BlockTags.DIRT) || original.is(Blocks.FARMLAND)
+    // Newer dirt tags exclude grass, podzol and mycelium.
+    if (original.is(BlockTags.DIRT) || original.is(Blocks.GRASS_BLOCK)
+        || original.is(Blocks.PODZOL) || original.is(Blocks.MYCELIUM) || original.is(Blocks.FARMLAND)
         || original.is(Blocks.DIRT_PATH) || original.is(Blocks.MOSS_BLOCK))
       return (Ecology.isScar(pos.getX(), pos.getZ()) ? Blocks.GRAVEL : Blocks.COARSE_DIRT)
           .defaultBlockState();
