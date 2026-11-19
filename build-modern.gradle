@@ -143,7 +143,11 @@ java {
     withSourcesJar()
 }
 test { useJUnitPlatform() }
-jar { from(rootProject.file('LICENSE')) { rename { "${it}_${project.base.archivesName.get()}" } } }
+jar {
+    from(rootProject.files('LICENSE', 'COPYING')) {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}
 
 
 def animationWorld = rootProject.layout.projectDirectory.dir(

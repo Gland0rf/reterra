@@ -52,7 +52,7 @@ def plan(tag=None):
             'minecraft_versions': members,
         })
     return {'version': version, 'targets': targets, 'releases': releases,
-            'prerelease': version.startswith('0.') or '-' in version}
+            'prerelease': '-' in version}
 
 
 def prepare_assets(release, directory):

@@ -12,3 +12,6 @@ bin/
 **/.stonecutter/
 __pycache__/
 *.pyc
+.env
+.env.*
+*.env

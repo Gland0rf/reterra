@@ -6,7 +6,7 @@
   "description": "Restore a barren Overworld through farming, machines and returning wildlife.",
   "icon": "assets/reterra/icon.png",
   "authors": ["ReTerra contributors"],
-  "license": "MIT",
+  "license": "LGPL-3.0-only",
   "environment": "*",
   "entrypoints": {"main": ["dev.reterra.ReTerra"],"client":["dev.reterra.client.ReTerraClient"]},
   "mixins": ["reterra.mixins.json"],
